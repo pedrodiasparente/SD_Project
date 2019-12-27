@@ -21,8 +21,9 @@ public class MediaCenter implements MediaCenterAPI{
     public synchronized void registo(String nome, String pass) throws DadosJaExistemException {
         if(!utilizadores.containsKey(nome)) {
             utilizadores.put(nome, new Utilizador(nome, pass));
+        } else {
+            throw new DadosJaExistemException();
         }
-        throw new DadosJaExistemException();
     }
 
     @Override
