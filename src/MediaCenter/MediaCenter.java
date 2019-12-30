@@ -12,9 +12,18 @@ public class MediaCenter implements MediaCenterAPI{
     private int idMusicas;
 
     public MediaCenter(){
+        Musica m1, m2, m3;
+
         this.utilizadores = new HashMap<String, Utilizador>();
         this.musicas = new HashMap<Integer, Musica>();
         idMusicas = 0;
+
+        m1 = new Musica("GUXI", "Chico", 2019, new ArrayList<>());
+        this.addMusica(m1);
+        m2 = new Musica("Sauce", "Sippinpurp", 2018, new ArrayList<>());
+        this.addMusica(m2);
+        m3 = new Musica("Castolo", "Chico", 2019, new ArrayList<>());
+        this.addMusica(m3);
     }
 
     @Override

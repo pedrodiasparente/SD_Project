@@ -5,14 +5,25 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 
 public class Musica {
-    private int identificador;
+    private int identificador, ano, descargas;
     private String titulo, artista;
     private ArrayList<String> tags;
 
-    public Musica(String titulo, String artista, ArrayList<String> tags){
+    public Musica(){
         this.identificador = 0;
+        this.descargas = 0;
+        this.titulo = "";
+        this.artista = "";
+        this.ano = 0;
+        this.tags = new ArrayList<>();
+    }
+
+    public Musica(String titulo, String artista, int ano, ArrayList<String> tags){
+        this.identificador = 0;
+        this.descargas = 0;
         this.titulo = titulo;
         this.artista = artista;
+        this.ano = ano;
         this.tags = tags;
         tags.add(titulo);
         tags.add(artista);
@@ -30,12 +41,28 @@ public class Musica {
         return artista;
     }
 
+    public int getAno() {
+        return ano;
+    }
+
+    public int getDescargas() {
+        return descargas;
+    }
+
     public String getTitulo() {
         return titulo;
     }
 
     public void setArtista(String artista) {
         this.artista = artista;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
+    public void setDescargas(int descargas) {
+        this.descargas = descargas;
     }
 
     public void setIdentificador(int identificador) {
