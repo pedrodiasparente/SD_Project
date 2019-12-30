@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class userThread implements Runnable{
     private Socket clSocket;
     private MediaCenter mediaCenter;
+    //PATH PARA O PROJECTO
     private final String PATH_SD = "/home/nuno/Documents/Universidade/SD/trabalho/SD_Project/";
 
 

@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class MediaCenterRemoto implements MediaCenterAPI {
+    //PATH PARA O PROJECTO
     private final String PATH_SD = "/home/nuno/Documents/Universidade/SD/trabalho/SD_Project/";
     private Socket socket;
     String currentUser;
