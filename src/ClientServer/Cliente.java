@@ -22,7 +22,7 @@ public class Cliente {
         Scanner scanner = new Scanner(System.in);
         Musica musica;
         ArrayList<Musica> musicas;
-        String info, nome, pass, tag, tags;
+        String info, nome, pass, tag, tags, id;
         String[] tagIndividual;
 
         info = "";
@@ -75,7 +75,7 @@ public class Cliente {
                             System.out.println(")");
                         }
                     } else{
-                        System.out.println("Ainda não conectado");
+                        System.out.println("Ainda não connectado");
                     }
                     break;
 
@@ -99,7 +99,20 @@ public class Cliente {
                         System.out.println("Ainda não conectado");
                     }
                     break;
-
+                case "download":
+                    if (loggedIn){
+                        System.out.println("Insira o id da música:");
+                        id = scanner.nextLine();
+                        try {
+                            musica = mcr.getMusica(Integer.parseInt(id));
+                            mcr.downloadMusica(musica);
+                        }
+                        catch (DadosInexistentesException e) {
+                            System.out.println("Id não corresponde a nenhuma música");
+                        }
+                    } else{
+                        System.out.println("Ainda não conectado");
+                    }
                 case "quit":
                     mcr.quit();
                     try {

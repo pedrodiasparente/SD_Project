@@ -66,7 +66,30 @@ public class MediaCenterRemoto implements MediaCenterAPI {
 
     @Override
     public Musica getMusica(int id) throws DadosInexistentesException {
-        return null;
+        Musica musica = new Musica();
+        String numTags;
+
+        try {
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter out = new PrintWriter(socket.getOutputStream());
+
+            if (socket.isConnected()) {
+                out.println("download " + id);
+                out.flush();
+                musica.setIdentificador(Integer.parseInt(in.readLine()));
+                musica.setTitulo(in.readLine());
+                musica.setArtista(in.readLine());
+                musica.setAno(Integer.parseInt(in.readLine()));
+                musica.setDescargas(Integer.parseInt(in.readLine()));
+                numTags = in.readLine();
+                for(int j = 0; j < Integer.parseInt(numTags); j++){
+                    musica.getTags().add(in.readLine());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return musica;
     }
 
     @Override
@@ -126,6 +149,39 @@ public class MediaCenterRemoto implements MediaCenterAPI {
                     out.println(t);
                 }
                 musicaBytes = Files.readAllBytes(Paths.get(PATH_SD + "userData/users/" + currentUser + "/" + m.getTitulo() +".mp3"));
+                out.flush();
+                dOut.writeInt(musicaBytes.length);
+                dOut.write(musicaBytes);
+                dOut.flush();
+                infoServer = in.readLine();
+                System.out.println(infoServer);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void downloadMusica(Musica m) {
+        String infoServer;
+        byte[] musicaBytes;
+
+        try {
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter out = new PrintWriter(socket.getOutputStream());
+            DataOutputStream dOut = new DataOutputStream(socket.getOutputStream());
+
+            if (socket.isConnected()) {
+                out.println("download");
+                out.println(m.getIdentificador());
+                out.println(m.getTitulo());
+                out.println(m.getArtista());
+                out.println(m.getAno());
+                out.println(m.getTags().size());
+                for(String t : m.getTags()){
+                    out.println(t);
+                }
+                musicaBytes = Files.readAllBytes(Paths.get(PATH_SD + "userData/server/" + m.getTitulo() +".mp3"));
                 out.flush();
                 dOut.writeInt(musicaBytes.length);
                 dOut.write(musicaBytes);

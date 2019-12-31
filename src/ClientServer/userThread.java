@@ -79,6 +79,24 @@ public class userThread implements Runnable{
                         }
                         break;
 
+                    case "download" :
+                        try {
+                            musica = mediaCenter.getMusica(Integer.parseInt(dataExe[1]));
+                            out.println(musica.getIdentificador());
+                            out.println(musica.getTitulo());
+                            out.println(musica.getArtista());
+                            out.println(musica.getAno());
+                            out.println(musica.getDescargas());
+                            out.println(musica.getTags().size());
+                            for(String t : musica.getTags()){
+                                out.println(t);
+                            }
+
+                        }
+                        catch (DadosInexistentesException e) {
+                            System.out.println("Id não corresponde a nenhuma música");
+                        }
+
                     case "insere" :
                         musica = new Musica();
                         musica.setIdentificador(Integer.parseInt(in.readLine()));
