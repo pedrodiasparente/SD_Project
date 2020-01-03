@@ -15,7 +15,5 @@ public interface MediaCenterAPI {
 
     public Musica getMusica(int id) throws DadosInexistentesException;
 
-    public void downloadMusica(Musica m);
-
     public ArrayList<Musica> search(String tag);
 }

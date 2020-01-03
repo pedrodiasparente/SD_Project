@@ -54,7 +54,10 @@ public class MediaCenter implements MediaCenterAPI{
 
     @Override
     public synchronized Musica getMusica(int id) throws DadosInexistentesException{
+        int descargas;
         if(musicas.containsKey(id)){
+            descargas = musicas.get(id).getDescargas();
+            musicas.get(id).setDescargas(descargas + 1);
             return(musicas.get(id));
         }
         throw new DadosInexistentesException();

@@ -105,7 +105,7 @@ public class Cliente {
                         id = scanner.nextLine();
                         try {
                             musica = mcr.getMusica(Integer.parseInt(id));
-                            mcr.downloadMusica(musica);
+                            System.out.println("Download da música " + musica.getTitulo() + " completo!");
                         }
                         catch (DadosInexistentesException e) {
                             System.out.println("Id não corresponde a nenhuma música");
@@ -113,6 +113,7 @@ public class Cliente {
                     } else{
                         System.out.println("Ainda não conectado");
                     }
+                    break;
                 case "quit":
                     mcr.quit();
                     try {

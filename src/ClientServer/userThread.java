@@ -35,6 +35,7 @@ public class userThread implements Runnable{
             BufferedReader in = new BufferedReader(new InputStreamReader(clSocket.getInputStream()));
             PrintWriter out = new PrintWriter(clSocket.getOutputStream());
             DataInputStream dIn = new DataInputStream(clSocket.getInputStream());
+            DataOutputStream dOut = new DataOutputStream(clSocket.getOutputStream());
 
 
             while (clSocket.isConnected() && !info.equals("quit")) {
@@ -91,11 +92,19 @@ public class userThread implements Runnable{
                             for(String t : musica.getTags()){
                                 out.println(t);
                             }
+                            out.flush();
+                            musicaBytes = Files.readAllBytes(Paths.get(PATH_SD + "userData/server/" + musica.getTitulo() +".mp3"));
+                            dOut.writeInt(musicaBytes.length);
+                            dOut.write(musicaBytes);
+                            dOut.flush();
 
                         }
                         catch (DadosInexistentesException e) {
                             System.out.println("Id não corresponde a nenhuma música");
+                            out.println("-1");
+                            out.flush();
                         }
+                        break;
 
                     case "insere" :
                         musica = new Musica();
