@@ -101,7 +101,7 @@ public class Cliente {
                     break;
                 case "download":
                     if (loggedIn){
-                        System.out.println("Insira o id da música:");
+                        System.out.print("Insira o id da música:");
                         id = scanner.nextLine();
                         try {
                             musica = mcr.getMusica(Integer.parseInt(id));
